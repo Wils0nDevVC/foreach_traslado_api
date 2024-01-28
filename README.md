@@ -1,8 +1,19 @@
+
+# Auth , y Validación de Correo
+
+Este proyecto esta orientado a la autenticación de usuario y la validación de este mediante un token que se enviara a su correo. Usando Clean Architecture.
+    - Registro de usuario
+    - Login
+    - Validación de correo (mediando un correo enviado)
+
+
+# Base Datos
+La base de datos usado es MongoDB
 # Rest Project + TypeScript
 
 Este proyecto previamente inicializado tiene todo lo necesario para trabajar con TypeScript, Express y Rest.
 
-Cada paso de su configuración ya se ha realizado previamente en el curso, por lo que solo es necesario clonar el proyecto y comenzar a trabajar.
+
 
 
 ## Instalación
