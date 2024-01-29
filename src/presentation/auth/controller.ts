@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { CustomError, LoginUserDto, RegisterUserDto } from "../../domain";
 import { AuthService } from "../services/auth.service";
+import { handlerError } from "../shared";
 
 export class AuthController {
     //D.I
@@ -8,14 +9,6 @@ export class AuthController {
         public readonly authService : AuthService
 
     ){}
-    //unknown: se utiliza para decir que es un tipo de dato desconocido
-    private handlerError = (error: unknown, res: Response) => { 
-        //si error es una instancia de CustomError
-        if(error instanceof CustomError) {
-            return res.status(error.statusCode).json({error: error.message})
-        }
-
-    }
 
      registerUser  = async (req:Request, res: Response)  => {
         
@@ -28,7 +21,7 @@ export class AuthController {
         this.authService.registerUser(registerUserDto!)
         .then((user) => res.json(user))
         .catch((error) => {
-            this.handlerError(error,res)
+            handlerError(error,res)
         })
        
     }
@@ -43,7 +36,7 @@ export class AuthController {
         this.authService.loginUser(loginUserDto!)
         .then((user)=> res.json(user))
         .catch((error)=>{
-            this.handlerError(error,res)
+            handlerError(error,res)
         })
     }
     
@@ -51,7 +44,7 @@ export class AuthController {
         const {token} = req.params;
         this.authService.validateEmail(token)
         .then(()=> res.json('Email validated'))
-        .catch(error => this.handlerError(error,res))
+        .catch(error => handlerError(error,res))
     }
 
 }

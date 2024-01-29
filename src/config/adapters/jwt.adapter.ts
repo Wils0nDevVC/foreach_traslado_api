@@ -24,11 +24,11 @@ export class JsonWebTokenAdapter {
   };
 
   //Validamos que el token que llegue es el correcto
-   validateToken = (token: string) => {
+   validateToken<T>(token: string):Promise<T | null>{
     return new Promise((resolve) => {
       jwt.verify(token,this.seed.getJWTSeed(),(err, decoded) => {
           if (err) return resolve(null);
-          resolve(decoded);
+          resolve(decoded as T);
         }
       );
     });

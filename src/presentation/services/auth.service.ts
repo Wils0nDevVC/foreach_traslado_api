@@ -84,7 +84,6 @@ export  class AuthService {
 
         const token = await this.generateToken({email})
         if(!token) throw CustomError.internalServer('Error getting token')
-        console.log(token)
 
         const link = `${envs.WEBSERVICE_URL}/auth/validate-email/${token}`;
 

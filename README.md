@@ -23,3 +23,17 @@ Este proyecto previamente inicializado tiene todo lo necesario para trabajar con
 3. En caso de necesitar base de datos, configurar el docker-compose.yml y ejecutar `docker-compose up -d` para levantar los servicios deseados.
 4. Ejecutar `npm run dev` para levantar el proyecto en modo desarrollo
 
+# DESCRIPCION DE SCRIPTS
+"scripts": {
+    //Esto ejecuta en el hambiente DEV, 
+    "dev": "tsnd --respawn --clear src/app.ts", 
+    tsnd --respawn --clear : detecta los cambios que se han hecho en algun archivo y reinicia el ambiente
+
+    //build : Te genera los compilados de JS basciamente esto ira a PRD
+    "build": "rimraf ./dist && tsc",
+    rimraf : elimina y genera un directorio al mismo iempo 
+    tsc : compila el typescript
+
+    //Inicia el proyecto en modo PRD 
+    "start": "npm run build && node dist/app.js"
+  },
