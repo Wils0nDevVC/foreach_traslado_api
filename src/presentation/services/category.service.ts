@@ -33,7 +33,6 @@ export class CategoryService {
     }
 
     public async getCategory(paginationDto:PaginationDto) { 
-        console.log(paginationDto)
 
         const {page, limit} = paginationDto
 
