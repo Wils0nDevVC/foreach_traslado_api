@@ -31,9 +31,18 @@ export class FileUploadService {
             }
 
 
+            //Obetenemos el destino del archivo
+            //__dirname : nos ubica en donde esta este archivo, 
+            //'../../../' : retrocedemos 3 veces
+            //folder : sería lo que recibimos q por defecto es "uploads"
             const destination = path.resolve(__dirname,'../../../',folder);
+
+            //revisamos si el directorio existe 
             this.checkFolder(destination)
+
+            //renombramos el archivo
             const fileName = `${this.uuid()}.${fileExtension}`
+            //movemos el archivo con el nombre renombrado
             file.mv(`${destination}/${fileName}`)
 
             return {fileName};
@@ -43,11 +52,15 @@ export class FileUploadService {
        }
     }
 
-    uploadMultiple(
-        file:any[],
+    async uploadMultiple(
+        files:UploadedFile[],
         folder: string = 'uploads',
         validExtensions : string[] = ['png', 'jpg', 'jpeg', 'gif']
     ){
+        const filesNames = await Promise.all(
+            files.map(file => this.uploadSingle(file, folder, validExtensions))
+        );
 
+        return filesNames;
     }
 }
