@@ -25,9 +25,6 @@ export class ProductService {
   getProduct = async (paginationDto: PaginationDto) => {
 
     const { page, limit } = paginationDto;
-
-    console.log(page, limit)
-
     try {
       //Hacemos uso de  Promise.all para ejecutar dos peticiones async simultaneamente
       const [total, products] = await Promise.all([
