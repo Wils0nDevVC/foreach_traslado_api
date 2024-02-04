@@ -12,9 +12,19 @@ En esta sección realizaremos una verificación de correo electrónico y crearem
 
 Puntualmente veremos:
 
-- Envío de correo
+- Envío de correo  
 - Creación de links de retorno
-- ngrok para tunneling
+
+- ngrok para tunneling (install)
+    -- Descargar ngrok https://dashboard.ngrok.com/get-started/setup/windows
+    -- Crear en C:\Development\ngrok y pegar ahí ngrok.exe
+    -- Crear una nueva variable de enterno en Path -> C:\Development\ngro
+    -- en CMD ejecutar 
+    --- TOKEN DE ACCESO 
+      - ngrok te dara un token de acceso, que deberas pegar en la terminal 
+         . ngrok config add-authtoken "TOKEN_DE_ACCESO"
+    -- Por ultimo ejecuta en la terminal "ngrok http 3000"  ,  "3000" es el puerto que vas a exponer a internet
+
 - Variables de entorno para facilitar sus cambios
 - Pruebas de conexión y validación desde el celular
 - Pruebas hacia el localhost desde internet

@@ -33,8 +33,11 @@ export class EmailService {
     async sendEmail(options:SendMailOptions):Promise<boolean>{
 
         const { to,subject, htmlBody, attachments = []} = options;
+
+        
         try {
             if(!this.postToProvider) return true
+            
             await this.transporter.sendMail({
                 to:to,
                 subject:subject,
@@ -43,7 +46,7 @@ export class EmailService {
             })
             return true;
         } catch (error) {       
-            console.log(error)  
+            console.error(error)  
             return false;
         }
 

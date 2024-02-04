@@ -14,7 +14,7 @@ export class JsonWebTokenAdapter {
         this.seed.getJWTSeed(),
         { expiresIn: duration },
         (err, token) => {
-          console.log(err);
+          console.error(err);
           if (err) return resolve(null);
 
           resolve(token);
