@@ -7,14 +7,20 @@
     - Registro de usuario
     - Login
     - Validación de correo (mediando un correo enviado)
+    - Middlewars
 
 
-# Base Datos
-La base de datos usado es MongoDB
-# Rest Project + TypeScript
+## Base Datos
+   - MongoDB
+
+## Rest Project + TypeScript
 
 Este proyecto previamente inicializado tiene todo lo necesario para trabajar con TypeScript, Express y Rest.
 
+## Patrones
+  - Adaptador
+  - Dtos
+  - Inyección de dependencias
 
 
 
