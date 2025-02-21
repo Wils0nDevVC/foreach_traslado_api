@@ -1,6 +1,7 @@
 import path from 'path';
 import express, { Router } from 'express';
 import fileUpload from 'express-fileupload';
+import cors from 'cors';
 
 interface Options {
   port: number;
@@ -30,6 +31,7 @@ export class Server {
     
 
     //* Middlewares
+    this.app.use(cors());
     this.app.use( express.json() ); // raw
     this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
     this.app.use(fileUpload({
@@ -41,7 +43,7 @@ export class Server {
 
     //* Routes
     this.app.use( this.routes );
-
+    
     //* SPA /^\/(?!api).*/  <== Únicamente si no empieza con la palabra api
     this.app.get('*', (req, res) => {
       const indexPath = path.join( __dirname + `../../../${ this.publicPath }/index.html` );

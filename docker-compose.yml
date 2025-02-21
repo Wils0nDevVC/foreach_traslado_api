@@ -1,19 +1,27 @@
 version: '3.8'
 
-
 services:
-
-  mongo-db:
-    image: mongo:6.0.6
+  mysql-db:
+    image: mysql:8.0
+    container_name: traslado_db
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo-user
-      MONGO_INITDB_ROOT_PASSWORD: 123456
-    volumes:
-      - ./mongo:/data/db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
     ports:
-      - 27017:27017
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - huella_network
 
+networks:
+  huella_network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
   # postgres-db:
   #   image: postgres:15.3
   #   restart: always

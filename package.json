@@ -6,13 +6,17 @@
   "scripts": {
     "dev": "tsnd --respawn --clear src/app.ts",
     "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node dist/app.js"
+    "start": "npm run build && node dist/app.js",
+    "prisma:migrate": "npx prisma migrate dev --name primera --schema ./src/infraestructure/prisma/schema.prisma",
+    "prisma:generate": "npx prisma generate --schema ./src/infraestructure/prisma/schema.prisma",
+    "prisma:studio": "npx prisma studio"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.18",
     "@types/express-fileupload": "^1.4.4",
     "@types/jsonwebtoken": "^9.0.5",
@@ -24,14 +28,17 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@prisma/client": "^6.4.1",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "env-var": "^7.4.1",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.1.0",
+    "mysql2": "^3.12.0",
     "nodemailer": "^6.9.8",
+    "prisma": "^6.4.1",
     "uuid": "^9.0.1"
   }
 }

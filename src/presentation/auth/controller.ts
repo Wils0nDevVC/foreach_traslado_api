@@ -1,26 +1,31 @@
 import { Request, Response } from "express";
-import { CustomError, LoginUserDto, RegisterUserDto } from "../../domain";
-import { AuthService } from "../services/auth.service";
+import { CustomError } from "../../domain";
 import { handlerError } from "../shared";
+import { AuthService } from "../../application/services/auth.service";
+import { RegisterUserDto } from "../../application/dto/RegisterUserDto";
+import { LoginUserDto } from "../../application/dto/LoginUserDto";
 
 export class AuthController {
     //D.I
+    
     constructor(
         public readonly authService : AuthService
 
     ){}
 
      registerUser  = async (req:Request, res: Response)  => {
-        
-        const [error,registerUserDto] = RegisterUserDto.create(req.body)
+        console.log(req.body)
+       const { name, email, password } = req.body;
+       const registerUserDto = new RegisterUserDto(name, email, password);
 
-        if(error) {
-           
-            return res.status(400).json(error)
-        }
+       if (!name || !email || !password) {
+           return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+       }
+       
         this.authService.registerUser(registerUserDto!)
         .then((user) => res.json(user))
         .catch((error) => {
+            console.log(error)
             handlerError(error,res)
         })
        
@@ -40,12 +45,5 @@ export class AuthController {
         })
     }
     
-    validateEmail  = (req:Request, res: Response) => {
-        const {token} = req.params;
-        this.authService.validateEmail(token)
-        .then(()=> res.json('Email validated'))
-        .catch(error => handlerError(error,res))
-    }
-
 }
 

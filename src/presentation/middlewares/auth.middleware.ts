@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { JsonWebTokenAdapter } from "../../config";
 import { JWTSeed } from "../../config/jwt_seed";
-import { UserModel } from "../../data";
 import { UserEntity } from "../../domain";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 
 export class AuthMiddleware {
 
@@ -16,9 +17,10 @@ export class AuthMiddleware {
         const token = authorization.split(' ').at(1) || '';
         try {
             const jwtAdapter = new JsonWebTokenAdapter(new JWTSeed())
-            const payload = await jwtAdapter.validateToken<{id:string}>(token)
+            const payload = await jwtAdapter.validateToken<{id:number}>(token)
             if(!payload) return res.status(401).json({error:'Invalid token'})
-            const user = await UserModel.findById(payload.id)
+            const id = payload.id
+            const user = await  prisma.user.findUnique({ where : {id } }); 
             if(!user) return res.status(401).json({error: 'Invalid token - user'});
 
             req.body.user = UserEntity.fromObject(user);
